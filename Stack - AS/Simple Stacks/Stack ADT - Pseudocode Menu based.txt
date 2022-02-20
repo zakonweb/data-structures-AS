@@ -1,0 +1,76 @@
+DECLARE Stack : ARRAY [0:4] OF CHARACTER
+DECLARE ToS : INTEGER
+
+//MAIN
+DECLARE item : CHARACTER
+DECLARE menuChoice : INTEGER
+CALL CreateStack()
+REPEAT
+  OUTPUT "1. Push"
+  OUTPUT "2. Pop"
+  OUTPUT "3. Display stack"
+  OUTPUT "4. Exit"
+
+  REPEAT //Validation - Range Check
+    INPUT "Enter your option. (1-4): ", menuChoice
+  UNTIL menuChoice >=1 AND menuChoice <=4
+
+  CASE OF menuChoice
+  1
+    INPUT "Enter value to push.", item
+    CALL Push(item)
+  2
+    item = Pop()
+    IF Item = '' THEN 
+       OUTPUT "Underflow. No item to delete."
+    ELSE
+       OUTPUT "Item popped = ", item
+    ENDIF
+  3: CALL DisplayStack()
+  END CASE
+UNTIL menuChoice = 4 
+//END PROGRAM
+
+PROCEDURE CreateStack()
+    DECLARE i : INTEGER
+
+    //Initialise Stack
+    FOR i = 0 TO 4
+        Stack[i] = ''
+    NEXT i
+
+    Tos = -1
+END PROCEDURE
+
+PROCEDURE Push(X : CHARACTER)
+    IF Tos = 4 THEN
+       OUTPUT "Overflow occured, no more values can be pushed."
+    ELSE
+       ToS = Tos +1
+       Stack[Tos] = X
+    END IF
+END PROCEDURE
+
+FUNCTION Pop() RETURN CHARACTER
+    DECLARE Value : CHARACTER
+    Value = ''
+
+    IF ToS <> -1
+      Value = Stack[ToS]
+      ToS = ToS -1
+    END IF
+    RETURN Value
+END FUNCTION
+
+PROCEDURE DisplayStack()
+    DECLARE i : INTEGER
+    FOR i = 4 TO 0 STEP -1
+      IF i = ToS THEN
+         OUTPUT Stack[i] & "<----"
+      ELSE
+         OUTPUT Stack[i]
+      ENDIF
+    NEXT
+END PROCEDURE
+
+
