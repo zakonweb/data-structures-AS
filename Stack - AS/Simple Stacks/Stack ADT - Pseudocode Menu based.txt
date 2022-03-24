@@ -4,7 +4,9 @@ DECLARE ToS : INTEGER
 //MAIN
 DECLARE item : CHARACTER
 DECLARE menuChoice : INTEGER
+
 CALL CreateStack()
+
 REPEAT
   OUTPUT "1. Push"
   OUTPUT "2. Pop"
@@ -21,12 +23,12 @@ REPEAT
     CALL Push(item)
   2
     item = Pop()
-    IF Item = '' THEN 
+    IF Item = ' ' THEN 
        OUTPUT "Underflow. No item to delete."
     ELSE
        OUTPUT "Item popped = ", item
     ENDIF
-  3: CALL DisplayStack()
+  3: DisplayStack()
   END CASE
 UNTIL menuChoice = 4 
 //END PROGRAM
@@ -39,21 +41,21 @@ PROCEDURE CreateStack()
         Stack[i] = ''
     NEXT i
 
-    Tos = -1
+    ToS = -1
 END PROCEDURE
 
 PROCEDURE Push(X : CHARACTER)
-    IF Tos = 4 THEN
+    IF ToS = 4 THEN
        OUTPUT "Overflow occured, no more values can be pushed."
     ELSE
        ToS = Tos +1
-       Stack[Tos] = X
+       Stack[ToS] = X
     END IF
 END PROCEDURE
 
 FUNCTION Pop() RETURN CHARACTER
     DECLARE Value : CHARACTER
-    Value = ''
+    Value = ' '
 
     IF ToS <> -1
       Value = Stack[ToS]
@@ -66,7 +68,7 @@ PROCEDURE DisplayStack()
     DECLARE i : INTEGER
     FOR i = 4 TO 0 STEP -1
       IF i = ToS THEN
-         OUTPUT Stack[i] & "<----"
+         OUTPUT Stack[i] & "   <----"
       ELSE
          OUTPUT Stack[i]
       ENDIF
